@@ -1,0 +1,58 @@
+/*
+Colors:
+#6ee3b4
+#eeffa8
+#f0ea00
+#a1c436
+#0c3b3d
+*/
+
+body {
+  color: #000;
+  background: #6ee3b4 url(background.png) repeat-x left top;
+  font: 14pt Verdana, Arial, sans-serif;
+  margin: 0 auto;
+  padding: 0;
+}
+
+table, th, td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  padding: 5px;
+}
+
+th {
+  text-align: center;
+  background: #a1c436;
+  font-weight: bold;
+}
+
+.odd {
+  background: #6ee3b4;
+}
+
+#wrapper {
+  width: 950px;
+  position: absolute;
+  left: 50%;
+  margin-left: -475px;
+}
+
+#header {
+  height: 75px;
+}
+
+#content {
+  background: #eeffa8;
+}
+
+#footer {
+}
+
