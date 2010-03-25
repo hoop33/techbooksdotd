@@ -13,13 +13,9 @@ end
 def get_deals
   deals = Array.new
   deals << Deal.new(:vendor => 'Apress', :title => 'The Definitive Guide to SWT and JFace',
-    :code => 'DOTDSJ', :amount => '9.99', :image_url => 'http://apress.com/resource/bookcover/9781590598344?size=medium',
-    :url => 'http://apress.com/info/dailydeal')
-  deals << Deal.new(:vendor => 'Manning', :title => 'Trying it Out',
-    :code => 'DOTDSJ', :amount => '9.99', 
+    :amount => '9.99', :image_url => 'http://apress.com/resource/bookcover/9781590598344?size=medium',
     :url => 'http://apress.com/info/dailydeal')
   deals << get_manning
-  deals
 end
 
 def get_manning
@@ -29,6 +25,9 @@ def get_manning
   # The link contains a number; we build the image link from that number
   parts = entry.link.split(/\//)
   cat_num = parts[-1]
-  Deal.new(:vendor => 'Manning', :title => entry.title, :url => entry.link, 
+
+  amount = /.*\$(.*?)!.*/.match(entry.title)[1]
+
+  Deal.new(:vendor => 'Manning', :title => entry.title, :url => entry.link, :amount => amount,
     :image_url => "http://covers.oreilly.com/images/#{cat_num}/cat.gif")
 end
