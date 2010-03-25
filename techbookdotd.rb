@@ -26,8 +26,9 @@ end
 def get_apress(content)
   url_part = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>.*/m.match(content)[1]
   title = /.*\<div class='bookdetails'\>.*?\<a href='.*?'\>(.*?)\<a.*/m.match(content)[1]
-  url = "http://apress.com#{url_part}"
-  Deal.new(:vendor => 'Apress', :title => title, :url => url)
+
+  Deal.new(:vendor => 'Apress', :title => title, :url => "http://apress.com#{url_part}", 
+    :image_url => "http://apress.com/resource/bookcover/#{url_part.split(/\//)[-1]}?size=medium")
 end
 
 def get_manning(content)
