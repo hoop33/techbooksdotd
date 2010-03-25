@@ -24,9 +24,12 @@ def get_apress
 end
 
 def get_manning
-  Deal.new(:vendor => 'Manning', :title => 'The Definitive Guide to SWT and JFace',
-    :amount => '9.99', :image_url => 'http://apress.com/resource/bookcover/9781590598344?size=medium',
-    :url => 'http://apress.com/info/dailydeal')
+  content = open('http://incsrc.manningpublications.com/dotd.js').read
+
+  url = /.*\<a href='(.*?)'\>.*/.match(content)[1]
+  title = /.*'\>(.*?)\<.*/.match(content)[1]
+
+  Deal.new(:vendor => 'Manning', :title => title, :url => url)
 end
 
 def get_oreilly
