@@ -12,28 +12,33 @@ end
 
 def get_deals
   deals = Array.new
-  deals << get_apress
-  deals << get_manning
-  deals << get_oreilly
+  deals << get_apress(open('http://apress.com/info/dailydeal').read)
+  deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
+  deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
 end
 
-def get_apress
+def get_apress1
   Deal.new(:vendor => 'Apress', :title => 'The Definitive Guide to SWT and JFace',
     :amount => '9.99', :image_url => 'http://apress.com/resource/bookcover/9781590598344?size=medium',
     :url => 'http://apress.com/info/dailydeal')
 end
 
-def get_manning
-  content = open('http://incsrc.manningpublications.com/dotd.js').read
+def get_apress(content)
+  url_part = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>.*/m.match(content)[1]
+  title = /.*\<div class='bookdetails'\>.*?\<a href='.*?'\>(.*?)\<a.*/m.match(content)[1]
+  url = "http://apress.com#{url_part}"
+  Deal.new(:vendor => 'Apress', :title => title, :url => url)
+end
 
+def get_manning(content)
   url = /.*\<a href='(.*?)'\>.*/.match(content)[1]
   title = /.*'\>(.*?)\<.*/.match(content)[1]
 
   Deal.new(:vendor => 'Manning', :title => title, :url => url)
 end
 
-def get_oreilly
-  rss = SimpleRSS.parse open('http://feeds.feedburner.com/oreilly/ebookdealoftheday')
+def get_oreilly(content)
+  rss = SimpleRSS.parse content
   entry = rss.entries.first
 
   # The link contains a number; we build the image link from that number
