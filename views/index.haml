@@ -16,7 +16,6 @@
             %th Vendor
             %th Title
             %th Amount
-            %th Code
           - is_odd = 1
           - @deals.each do |deal|
             %tr{ :class => is_odd == 1 ? 'odd' : 'even'}
@@ -30,7 +29,6 @@
               %td
                 %a{:title => deal.title, :href => deal.url}= deal.title
               %td= deal.amount
-              %td= deal.code
 
       #footer
           

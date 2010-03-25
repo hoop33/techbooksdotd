@@ -1,5 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require 'haml'
+require 'simple-rss'
+require 'open-uri'
 require 'deal.rb'
 
 get '/' do
@@ -15,5 +18,17 @@ def get_deals
   deals << Deal.new(:vendor => 'Manning', :title => 'Trying it Out',
     :code => 'DOTDSJ', :amount => '9.99', 
     :url => 'http://apress.com/info/dailydeal')
+  deals << get_manning
   deals
+end
+
+def get_manning
+  rss = SimpleRSS.parse open('http://feeds.feedburner.com/oreilly/ebookdealoftheday')
+  entry = rss.entries.first
+
+  # The link contains a number; we build the image link from that number
+  parts = entry.link.split(/\//)
+  cat_num = parts[-1]
+  Deal.new(:vendor => 'Manning', :title => entry.title, :url => entry.link, 
+    :image_url => "http://covers.oreilly.com/images/#{cat_num}/cat.gif")
 end
