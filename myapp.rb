@@ -3,7 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'simple-rss'
 require 'open-uri'
-require 'deal'
+require 'deal.rb'
 
 @@manning_deal = Deal.new(:vendor => 'Manning', :title => 'No results -- check Manning site',
   :url => 'http://www.manning.com/')
