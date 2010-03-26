@@ -1,4 +1,4 @@
-require 'techbookdotd'
+require 'myapp'
 require 'test/unit'
 require 'rack/test'
 
