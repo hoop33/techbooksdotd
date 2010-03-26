@@ -6,4 +6,4 @@ set :views,    File.expand_path(File.dirname(__FILE__) + '/../views')
 set :env,      :production
 disable :run, :reload
 
-run Sinatra.application
+run Sinatra::Application
