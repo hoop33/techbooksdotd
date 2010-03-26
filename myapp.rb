@@ -36,7 +36,7 @@ def get_apress(content)
 end
 
 def get_manning(content)
-  matches = /.*\<BR.*?\<a href='(.*?)'\>(.*?)\<\/a\>\<BR>(.*?)"\).*/.match(content)
+  matches = /.*\<BR.*?\<a href='(.*?)'\>(.*?)\<\/a\>.*?\<BR>(.*?)"\).*/i.match(content)
   if matches.nil?
     return @@manning_deal
   end
