@@ -25,12 +25,12 @@ table {
 }
 
 th, td {
+  text-align: center;
   vertical-align: middle;
   padding: 5px;
 }
 
 th {
-  text-align: center;
   background: #a1c436;
   font-weight: bold;
 }

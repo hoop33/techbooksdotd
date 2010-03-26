@@ -41,7 +41,7 @@ def get_manning(content)
     return @@manning_deal
   end
   url, title, notes = matches.captures()
-  Deal.new(:vendor => 'Manning', :title => title, :url => url, :notes => notes)
+  Deal.new(:vendor => 'Manning', :title => title, :url => url, :notes => notes, :image_url => 'no_cover.png')
 end
 
 def get_oreilly(content)
