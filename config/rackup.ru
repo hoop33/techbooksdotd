@@ -6,4 +6,6 @@ set :views,    File.expand_path(File.dirname(__FILE__) + '/../views')
 set :env,      :production
 disable :run, :reload
 
+Haml::Template.options[:format] = :html5
+
 run Sinatra::Application
