@@ -1,4 +1,4 @@
-require 'myapp'
+require File.dirname(__FILE__) + "/../myapp.rb"
 require 'test/unit'
 require 'rack/test'
 
