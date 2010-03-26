@@ -10,7 +10,7 @@ Colors:
 body {
   color: #000;
   background: #6ee3b4 url(background.png) repeat-x left top;
-  font: 14pt Verdana, Arial, sans-serif;
+  font: 1.0em Verdana, Arial, sans-serif;
   margin: 0 auto;
   padding: 0;
 }
@@ -55,5 +55,12 @@ tr {
 }
 
 #footer {
+  background: #a1c436;
+  border: 1px solid black;
+  border-top: 0px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.75em;
+  padding: 5px;
 }
 
