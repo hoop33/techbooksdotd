@@ -14,6 +14,7 @@
           %tr
             %th Book
             %th Vendor
+            %th Date
             %th Title
             %th Notes
             %th Amount
@@ -27,6 +28,7 @@
                 - else
                   %img{ :src => deal.image_url } 
               %td= deal.vendor
+              %td= deal.date
               %td
                 %a{:title => deal.title, :href => deal.url}= deal.title
               %td= deal.notes

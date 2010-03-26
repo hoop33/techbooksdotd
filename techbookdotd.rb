@@ -5,6 +5,9 @@ require 'simple-rss'
 require 'open-uri'
 require 'deal.rb'
 
+@@manning_deal = Deal.new(:vendor => 'Manning', :title => 'No results -- check Manning site',
+  :url => 'http://www.manning.com/')
+
 get '/' do
   @deals = get_deals
   haml :index
@@ -27,9 +30,12 @@ def get_apress(content)
 end
 
 def get_manning(content)
-  url = /.*\<a href='(.*?)'\>.*/.match(content)[1]
-  title = /.*'\>(.*?)\<.*/.match(content)[1]
-  Deal.new(:vendor => 'Manning', :title => title, :url => url)
+  matches = /.*write\("(.*?)\<BR.*?\<a href='(.*?)'\>(.*?)\<\/a\>\<BR>(.*?)"\).*/.match(content)
+  if matches.nil?
+    return @@manning_deal
+  end
+  date, url, title, notes = matches.captures()
+  Deal.new(:vendor => 'Manning', :date => date, :title => title, :url => url, :notes => notes)
 end
 
 def get_oreilly(content)
