@@ -14,25 +14,16 @@
           %tr
             %th Book
             %th Vendor
-            %th Date
             %th Title
             %th Notes
-            %th Amount
-          - is_odd = 1
           - @deals.each do |deal|
-            %tr{ :class => is_odd == 1 ? 'odd' : 'even'}
-              - is_odd = 1 - is_odd
+            %tr
               %td
-                - if deal.image_url && deal.image_url.empty?
-                  No Image
-                - else
-                  %img{ :src => deal.image_url } 
+                %img{ :src => deal.image_url } 
               %td= deal.vendor
-              %td= deal.date
               %td
                 %a{:title => deal.title, :href => deal.url}= deal.title
               %td= deal.notes
-              %td= deal.amount
 
       #footer
           

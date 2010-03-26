@@ -25,6 +25,7 @@ table {
 }
 
 th, td {
+  vertical-align: middle;
   padding: 5px;
 }
 
@@ -34,8 +35,8 @@ th {
   font-weight: bold;
 }
 
-.odd {
-  background: #6ee3b4;
+tr {
+  background: #eeffa8;
 }
 
 #wrapper {

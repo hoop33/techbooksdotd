@@ -231,7 +231,6 @@ EODOC
 
     deal = get_apress(content)
     assert_equal 'Apress', deal.vendor
-    assert_nil deal.date
     assert_equal 'Hardening Windows', deal.title
     assert_equal 'http://apress.com/book/view/1590592662', deal.url
     assert_nil deal.notes
@@ -243,7 +242,6 @@ EODOC
     assert_equal 'Apress', deal.vendor
     assert_equal 'No results -- check Apress site', deal.title
     assert_equal 'http://www.apress.com/', deal.url
-    assert_nil deal.date
     assert_nil deal.notes
   end
 
@@ -253,7 +251,6 @@ EODOC
     assert_equal 'Apress', deal.vendor
     assert_equal 'No results -- check Apress site', deal.title
     assert_equal 'http://www.apress.com/', deal.url
-    assert_nil deal.date
     assert_nil deal.notes
   end
 
@@ -263,7 +260,6 @@ EODOC
     assert_equal 'Apress', deal.vendor
     assert_equal 'No results -- check Apress site', deal.title
     assert_equal 'http://www.apress.com/', deal.url
-    assert_nil deal.date
     assert_nil deal.notes
   end
 end

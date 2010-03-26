@@ -9,6 +9,8 @@ require 'deal.rb'
   :url => 'http://www.manning.com/')
 @@apress_deal = Deal.new(:vendor => 'Apress', :title => 'No results -- check Apress site',
   :url => 'http://www.apress.com/')
+@@oreilly_deal = Deal.new(:vendor => "O'Reilly", :title => "No results -- check O'Reilly site",
+  :url => 'http://www.oreilly.com/')
 
 get '/' do
   @deals = get_deals
@@ -27,9 +29,6 @@ def get_apress(content)
   if matches.nil?
     return @@apress_deal
   end
-  #url_part = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>.*/m.match(content)[1]
-  ##title = /.*\<div class='bookdetails'\>.*?\<a href='.*?'\>(.*?)\<a.*/m.match(content)[1]
-  #image_url_part = /.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)[1]
 
   url_part, title, image_url_part = matches.captures()
   Deal.new(:vendor => 'Apress', :title => title, :url => "http://apress.com#{url_part}", 
@@ -37,24 +36,26 @@ def get_apress(content)
 end
 
 def get_manning(content)
-  matches = /.*write\("(.*?)\<BR.*?\<a href='(.*?)'\>(.*?)\<\/a\>\<BR>(.*?)"\).*/.match(content)
+  matches = /.*\<BR.*?\<a href='(.*?)'\>(.*?)\<\/a\>\<BR>(.*?)"\).*/.match(content)
   if matches.nil?
     return @@manning_deal
   end
-  date, url, title, notes = matches.captures()
-  Deal.new(:vendor => 'Manning', :date => date, :title => title, :url => url, :notes => notes)
+  url, title, notes = matches.captures()
+  Deal.new(:vendor => 'Manning', :title => title, :url => url, :notes => notes)
 end
 
 def get_oreilly(content)
-  rss = SimpleRSS.parse content
-  entry = rss.entries.first
+  begin
+    rss = SimpleRSS.parse content
+    entry = rss.entries.first
 
-  # The link contains a number; we build the image link from that number
-  parts = entry.link.split(/\//)
-  cat_num = parts[-1]
+    # The link contains a number; we build the image link from that number
+    parts = entry.link.split(/\//)
+    cat_num = parts[-1]
 
-  amount = /.*\$(.*?)!.*/.match(entry.title)[1]
-
-  Deal.new(:vendor => "O'Reilly", :title => entry.title, :url => entry.link, :amount => amount,
-    :image_url => "http://covers.oreilly.com/images/#{cat_num}/cat.gif")
+    return Deal.new(:vendor => "O'Reilly", :title => entry.title, :url => entry.link, 
+      :image_url => "http://covers.oreilly.com/images/#{cat_num}/cat.gif")
+  rescue SimpleRSSError
+    return @@oreilly_deal
+  end
 end
