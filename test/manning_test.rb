@@ -4,7 +4,7 @@ require 'rack/test'
 
 set :environment, :test
 
-class HomePageTest < Test::Unit::TestCase
+class ManningTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app

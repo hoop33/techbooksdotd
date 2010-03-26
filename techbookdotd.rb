@@ -7,6 +7,8 @@ require 'deal.rb'
 
 @@manning_deal = Deal.new(:vendor => 'Manning', :title => 'No results -- check Manning site',
   :url => 'http://www.manning.com/')
+@@apress_deal = Deal.new(:vendor => 'Apress', :title => 'No results -- check Apress site',
+  :url => 'http://www.apress.com/')
 
 get '/' do
   @deals = get_deals
@@ -21,10 +23,15 @@ def get_deals
 end
 
 def get_apress(content)
-  url_part = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>.*/m.match(content)[1]
-  title = /.*\<div class='bookdetails'\>.*?\<a href='.*?'\>(.*?)\<a.*/m.match(content)[1]
-  image_url_part = /.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)[1]
+  matches = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>(.*?)\<\/a.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)
+  if matches.nil?
+    return @@apress_deal
+  end
+  #url_part = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>.*/m.match(content)[1]
+  ##title = /.*\<div class='bookdetails'\>.*?\<a href='.*?'\>(.*?)\<a.*/m.match(content)[1]
+  #image_url_part = /.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)[1]
 
+  url_part, title, image_url_part = matches.captures()
   Deal.new(:vendor => 'Apress', :title => title, :url => "http://apress.com#{url_part}", 
     :image_url => "http://apress.com#{image_url_part}")
 end
