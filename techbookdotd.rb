@@ -29,7 +29,6 @@ end
 def get_manning(content)
   url = /.*\<a href='(.*?)'\>.*/.match(content)[1]
   title = /.*'\>(.*?)\<.*/.match(content)[1]
-
   Deal.new(:vendor => 'Manning', :title => title, :url => url)
 end
 

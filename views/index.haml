@@ -15,6 +15,7 @@
             %th Book
             %th Vendor
             %th Title
+            %th Notes
             %th Amount
           - is_odd = 1
           - @deals.each do |deal|
@@ -28,6 +29,7 @@
               %td= deal.vendor
               %td
                 %a{:title => deal.title, :href => deal.url}= deal.title
+              %td= deal.notes
               %td= deal.amount
 
       #footer

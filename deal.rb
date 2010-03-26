@@ -1,5 +1,5 @@
 class Deal
-  attr_accessor :vendor, :title, :amount, :image_url, :url
+  attr_accessor :vendor, :title, :amount, :image_url, :url, :notes
 
   def initialize(params)
     self.vendor = params[:vendor]
@@ -7,5 +7,6 @@ class Deal
     self.amount = params[:amount]
     self.image_url = params[:image_url]
     self.url = params[:url]
+    self.notes = params[:notes]
   end
 end
