@@ -281,35 +281,35 @@ EODOC
 
     deal = get_oreilly(content)
     assert_equal "O'Reilly", deal.vendor
+    assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal 'Ebook Deal of the Day: Regular Expressions Cookbook - Only $9.99! Use code DDREC', deal.title
     assert_equal 'http://oreilly.com/catalog/9780596520694/', deal.url
-    assert_nil deal.notes
   end
   
   def test_it_parses_oreilly_nil
     content = nil
     deal = get_oreilly(content)
     assert_equal "O'Reilly", deal.vendor
+    assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal "No results -- check O'Reilly site", deal.title
     assert_equal 'http://www.oreilly.com/', deal.url
-    assert_nil deal.notes
   end
 
   def test_it_parses_oreilly_empty
     content = ''
     deal = get_oreilly(content)
     assert_equal "O'Reilly", deal.vendor
+    assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal "No results -- check O'Reilly site", deal.title
     assert_equal 'http://www.oreilly.com/', deal.url
-    assert_nil deal.notes
   end
 
   def test_it_parses_oreilly_bad
     content = 'Does not contain the data'
     deal = get_oreilly(content)
     assert_equal "O'Reilly", deal.vendor
+    assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal "No results -- check O'Reilly site", deal.title
     assert_equal 'http://www.oreilly.com/', deal.url
-    assert_nil deal.notes
   end
 end

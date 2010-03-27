@@ -231,35 +231,35 @@ EODOC
 
     deal = get_apress(content)
     assert_equal 'Apress', deal.vendor
+    assert_equal 'http://www.apress.com/', deal.vendor_url
     assert_equal 'Hardening Windows', deal.title
     assert_equal 'http://apress.com/book/view/1590592662', deal.url
-    assert_nil deal.notes
   end
   
   def test_it_parses_apress_nil
     content = nil
     deal = get_apress(content)
     assert_equal 'Apress', deal.vendor
+    assert_equal 'http://www.apress.com/', deal.vendor_url
     assert_equal 'No results -- check Apress site', deal.title
     assert_equal 'http://www.apress.com/', deal.url
-    assert_nil deal.notes
   end
 
   def test_it_parses_apress_empty
     content = ''
     deal = get_apress(content)
     assert_equal 'Apress', deal.vendor
+    assert_equal 'http://www.apress.com/', deal.vendor_url
     assert_equal 'No results -- check Apress site', deal.title
     assert_equal 'http://www.apress.com/', deal.url
-    assert_nil deal.notes
   end
 
   def test_it_parses_apress_bad
     content = 'Does not contain the data'
     deal = get_apress(content)
     assert_equal 'Apress', deal.vendor
+    assert_equal 'http://www.apress.com/', deal.vendor_url
     assert_equal 'No results -- check Apress site', deal.title
     assert_equal 'http://www.apress.com/', deal.url
-    assert_nil deal.notes
   end
 end

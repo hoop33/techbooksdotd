@@ -39,6 +39,27 @@ tr {
   background: #eeffa8;
 }
 
+a {
+  font-weight: bold;
+  padding: 2px;
+}
+
+a:link {
+  color: #0c3b3d;
+}
+
+a:visited {
+  color: #0c3b3d;
+}
+
+a:hover {
+  color: #f0ea00;
+  background-color: #a1c436;
+  text-decoration: none;
+}
+
+a:active {color:#0000FF;}  /* selected link */
+
 #wrapper {
   width: 950px;
   position: absolute;

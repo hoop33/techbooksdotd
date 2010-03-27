@@ -17,19 +17,21 @@
             %th Book
             %th Vendor
             %th Title
-            %th Notes
           - @deals.each do |deal|
             %tr
               %td
                 %img{ :src => deal.image_url } 
-              %td= deal.vendor
               %td
-                %a{:title => deal.title, :href => deal.url}= deal.title
-              %td= deal.notes
+                %a{ :title => deal.vendor, :href => deal.vendor_url }= deal.vendor
+              %td
+                - if deal.url.nil?
+                  = deal.title
+                - else
+                  %a{ :title => deal.title, :href => deal.url }= deal.title
 
       #footer
         %p
-          Not responsible for titles or prices displayed. Please check appropriate site before purchasing.
+          Not responsible for titles or prices displayed. Data pulled from respective vendor sites. Please check appropriate site before purchasing.
         %p
           &copy; 2010 Grailbox. All rights reserved.
           
