@@ -58,7 +58,11 @@ a:hover {
   text-decoration: none;
 }
 
-a:active {color:#0000FF;}  /* selected link */
+a:active {
+  background-color: #f0ea00;
+  color: #a1c436;
+  text-decoration: none;
+}
 
 #wrapper {
   width: 950px;
