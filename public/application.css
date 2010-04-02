@@ -75,6 +75,20 @@ a:active {
   height: 110px;
 }
 
+#badges {
+  float: right;
+  padding-top: 10px;
+}
+
+#badges a:hover {
+  background-color: inherit;
+}
+
+#badges li {
+  display: inline;
+  list-style-type: none;
+}
+
 #content {
   background: #eeffa8;
 }
