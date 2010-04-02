@@ -80,6 +80,10 @@ a:active {
   padding-top: 10px;
 }
 
+#badges a {
+  text-decoration: none;
+}
+
 #badges a:hover {
   background-color: inherit;
 }
