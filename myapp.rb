@@ -36,8 +36,6 @@ def get_apress(content)
 end
 
 def get_manning(content)
-   #   document.write("March 25, 2010<BR><BR> <a href='http://www.manning.com/cahill/'>iPhone in Practice</a><BR>  $15 off the MEAP and Print book edition.  Enter <b>dotd0325</b> in the Promotional Code box when you check ")
-  #matches = /.*\<BR.*?\<a href='(.*?)'\>(.*?)\<\/a\>.*?\<BR>(.*?)"\).*/i.match(content)
   matches = /.*?(\<a href=.*?Promotional Code box).*/m.match(content)
   if matches.nil?
     return @@manning_deal
