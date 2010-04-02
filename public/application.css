@@ -76,6 +76,14 @@ a:active {
   height: 110px;
 }
 
+#header a {
+  text-decoration: none;
+}
+
+#header a:hover {
+  background-color: inherit;
+}
+
 #logo {
   float: left;
 }
@@ -83,14 +91,6 @@ a:active {
 #badges {
   float: right;
   padding-top: 10px;
-}
-
-#badges a {
-  text-decoration: none;
-}
-
-#badges a:hover {
-  background-color: inherit;
 }
 
 #badges li {
