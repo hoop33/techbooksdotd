@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'builder'
 require 'sinatra'
 require 'haml'
 require 'simple-rss'
@@ -15,6 +16,29 @@ require File.dirname(__FILE__) + "/./deal.rb"
 get '/' do
   @deals = get_deals
   haml :index
+end
+
+get '/rss.xml' do
+  builder do |xml|
+    xml.instruct! :xml, :version => '1.0'
+    xml.rss :version => "2.0" do
+      xml.channel do
+        xml.title "Tech Books Deals of the Day"
+        xml.description "Publishes the Deals of the Day from leading technology book publishers"
+        xml.link "http://techbooksdotd.heroku.com/"
+
+        @deals = get_deals
+        @deals.each do |deal|
+          xml.item do
+            xml.title "#{deal.vendor} -- #{deal.title}"
+            xml.link deal.url
+            xml.description deal.title
+            xml.pubDate Time.now.rfc822()
+          end
+        end
+      end
+    end
+  end
 end
 
 def get_deals
