@@ -2,3 +2,4 @@ sinatra -v 1.0
 haml -v 3.0.18
 simple-rss -v 1.2.3
 builder -v 2.1.2
+json -v 1.4.6

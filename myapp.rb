@@ -4,6 +4,7 @@ require 'sinatra'
 require 'haml'
 require 'simple-rss'
 require 'open-uri'
+require 'json'
 require File.dirname(__FILE__) + "/./deal.rb"
 
 @@manning_deal = Deal.new(:vendor => 'Manning', :vendor_url => 'http://www.manning.com/',
@@ -16,6 +17,11 @@ require File.dirname(__FILE__) + "/./deal.rb"
 get '/' do
   @deals = get_deals
   haml :index
+end
+
+get '/deals.json' do
+  content_type :json
+  get_deals.to_json
 end
 
 get '/rss.xml' do

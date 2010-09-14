@@ -8,4 +8,15 @@ class Deal
     self.image_url = params[:image_url]
     self.url = params[:url]
   end
+
+  def to_json(*a)
+    {
+      'json_class' => self.class.name,
+      'data' => [ vendor, vendor_url, title, image_url, url ]
+    }.to_json(*a)
+  end
+
+  def self.json_create(o)
+    new(*o['data'])
+  end
 end
