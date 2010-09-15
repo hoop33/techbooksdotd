@@ -35,7 +35,7 @@ tbdotd.receiveDeals = function(responseText) {
     tbdotd.delay = tbdotd.delay || 5 * 1000;
     if (tbdotd.delay <= 40 * 1000) {
       tbdotd.delay *= 2;
-//      window.setTimeout(tbdotd.load, tbdotd.delay);
+      window.setTimeout(tbdotd.load, tbdotd.delay);
     }
   } else {
     var deals = JSON.parse(responseText);
