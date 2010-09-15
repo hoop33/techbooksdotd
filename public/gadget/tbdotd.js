@@ -14,7 +14,8 @@ tbdotd.elements = {
   'manning_link': null,
   'credit': null
 };
-tbdotd.url = 'http://localhost:4567/deals.json';
+//tbdotd.url = 'http://localhost:4567/deals.json';
+tbdotd.url = 'http://techbooksdotd.heroku.com/deals.json';
 
 tbdotd.init = function() {
   var id;
@@ -44,6 +45,11 @@ tbdotd.receiveDeals = function(responseText) {
       tbdotd.updateDeal(deal);
     };
   }
+  // Refresh every hour
+  if (!!tbdotd.timeout) {
+    window.clearTimeout(tbdotd.timeout);
+  }
+  tbdotd.timeout = window.setTimeout(tbdotd.load, 60 * 60 * 1000);
 };
 
 tbdotd.updateDeal = function(deal) {
