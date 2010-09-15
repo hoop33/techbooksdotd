@@ -4,29 +4,29 @@
     %title Tech Books Deals of the Day
     %meta{ 'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8' }
     %link{ :rel => 'shortcut icon', :href => 'favicon.ico' }
-    %link{ :rel => 'stylesheet', :href => 'reset.css', :type => 'text/css', :media => 'all' }
-    %link{ :rel => 'stylesheet', :href => 'application.css', :type => 'text/css', :media => 'all' }
+    %link{ :rel => 'stylesheet', :href => 'stylesheets/reset.css', :type => 'text/css', :media => 'all' }
+    %link{ :rel => 'stylesheet', :href => 'stylesheets/application.css', :type => 'text/css', :media => 'all' }
   %body
     #wrapper
       #header
         #logo
           %a{ :title => 'Refresh', :href => '/' }
-            %img{ :src => 'dotd.png', :width => 418, :height => 106, :alt => 'logo' }
+            %img{ :src => 'images/dotd.png', :width => 418, :height => 106, :alt => 'logo' }
 
         #badges
           %ol
             %li
               %a{ :title => 'A Grailbox site', :href => 'http://grailbox.com' }
-                %img{ :src => 'grailbox_logo.png', :width => 159, :height => 60 }
+                %img{ :src => 'images/grailbox_logo.png', :width => 159, :height => 60 }
             %li
               %a{ :title => 'Get source code', :href => 'http://github.com/hoop33/techbooksdotd' }
-                %img{ :src => 'github.png', :width => 100, :height => 45 }
+                %img{ :src => 'images/github.png', :width => 100, :height => 45 }
             %li
               %a{ :title => 'Follow me on Twitter', :href => 'http://twitter.com/hoop33' }
-                %img{ :src => 'button-twitter.png', :width => 60, :height => 60 }
+                %img{ :src => 'images/button-twitter.png', :width => 60, :height => 60 }
             %li
               %a{ :title => 'Subscribe', :href => '/rss.xml' }
-                %img{ :src => 'button-feed.png', :width => 60, :height => 60 }
+                %img{ :src => 'images/button-feed.png', :width => 60, :height => 60 }
 
       #content
         %table
@@ -39,7 +39,7 @@
               %td
                 %img{ :src => deal.image_url } 
               %td
-                %a{ :title => deal.vendor, :href => deal.vendor_url }= deal.vendor
+                %a{ :title => deal.vendor_name, :href => deal.vendor_url }= deal.vendor_name
               %td
                 - if deal.url.nil?
                   = deal.title
@@ -52,4 +52,4 @@
         %p
           Tech Books Deals of the Day by Rob Warner. 
           
-    %script{ :type => 'text/javascript', :src => 'analytics.js' }
+    %script{ :type => 'text/javascript', :src => 'javascript/analytics.js' }

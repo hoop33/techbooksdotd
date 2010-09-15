@@ -7,12 +7,21 @@ require 'open-uri'
 require 'json'
 require File.dirname(__FILE__) + "/./deal.rb"
 
-@@manning_deal = Deal.new(:vendor => 'Manning', :vendor_url => 'http://www.manning.com/',
-  :title => 'No results -- check Manning site', :url => 'http://www.manning.com/')
-@@apress_deal = Deal.new(:vendor => 'Apress', :vendor_url => 'http://www.apress.com/',
-  :title => 'No results -- check Apress site', :url => 'http://www.apress.com/')
-@@oreilly_deal = Deal.new(:vendor => "O'Reilly", :vendor_url => 'http://www.oreilly.com/',
-  :title => "No results -- check O'Reilly site", :url => 'http://www.oreilly.com/')
+@@manning_deal = Deal.new(:vendor_name => 'Manning', 
+                          :vendor_id => 'manning',
+                          :vendor_url => 'http://www.manning.com/',
+                          :title => 'No results -- check Manning site', 
+                          :url => 'http://www.manning.com/')
+@@apress_deal = Deal.new(:vendor_name => 'Apress', 
+                         :vendor_id => 'apress',
+                         :vendor_url => 'http://www.apress.com/',
+                         :title => 'No results -- check Apress site', 
+                         :url => 'http://www.apress.com/')
+@@oreilly_deal = Deal.new(:vendor_name => "O'Reilly", 
+                          :vendor_id => 'oreilly',
+                          :vendor_url => 'http://www.oreilly.com/',
+                          :title => "No results -- check O'Reilly site", 
+                          :url => 'http://www.oreilly.com/')
 
 get '/' do
   @deals = get_deals
@@ -36,7 +45,7 @@ get '/rss.xml' do
         @deals = get_deals
         @deals.each do |deal|
           xml.item do
-            xml.title "#{deal.vendor} -- #{deal.title}"
+            xml.title "#{deal.vendor_name} -- #{deal.title}"
             xml.link deal.url
             xml.description deal.title
             xml.pubDate Time.now.rfc822()
@@ -61,8 +70,12 @@ def get_apress(content)
   end
 
   url_part, title, image_url_part = matches.captures()
-  Deal.new(:vendor => 'Apress', :vendor_url => 'http://www.apress.com/', :title => title, 
-    :url => "http://apress.com#{url_part}", :image_url => "http://apress.com#{image_url_part}")
+  Deal.new(:vendor_name => 'Apress', 
+           :vendor_id => 'apress', 
+           :vendor_url => 'http://www.apress.com/', 
+           :title => title, 
+           :url => "http://apress.com#{url_part}", 
+           :image_url => "http://apress.com#{image_url_part}")
 end
 
 def get_manning(content)
@@ -71,8 +84,11 @@ def get_manning(content)
     return @@manning_deal
   end
   title = matches[1]
-  Deal.new(:vendor => 'Manning', :vendor_url => 'http://www.manning.com/', :title => title, 
-    :image_url => 'no_cover.png')
+  Deal.new(:vendor_name => 'Manning', 
+           :vendor_id => 'manning',
+           :vendor_url => 'http://www.manning.com/', 
+           :title => title, 
+           :image_url => 'images/no_cover.png')
 end
 
 def get_oreilly(content)
@@ -80,9 +96,12 @@ def get_oreilly(content)
     rss = SimpleRSS.parse content
     entry = rss.entries.first
 
-    return Deal.new(:vendor => "O'Reilly", :vendor_url => 'http://www.oreilly.com/',
-      :title => entry.title, :url => entry.link, 
-      :image_url => "http://covers.oreilly.com/images/#{entry.link.split(/\//)[-1]}/cat.gif")
+    return Deal.new(:vendor_name => "O'Reilly", 
+                    :vendor_id => 'oreilly',
+                    :vendor_url => 'http://www.oreilly.com/',
+                    :title => entry.title, 
+                    :url => entry.link, 
+                    :image_url => "http://covers.oreilly.com/images/#{entry.link.split(/\//)[-1]}/cat.gif")
   rescue SimpleRSSError
     return @@oreilly_deal
   end

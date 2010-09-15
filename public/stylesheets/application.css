@@ -9,7 +9,7 @@ Colors:
 
 body {
   color: #000;
-  background: #6ee3b4 url(background.png) repeat-x left top;
+  background: #6ee3b4 url(../images/background.png) repeat-x left top;
   font: 1.0em Verdana, Arial, sans-serif;
   margin: 0 auto;
   padding: 0;

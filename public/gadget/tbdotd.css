@@ -1,0 +1,63 @@
+.tbdotd {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+  color: #C3974E;
+  background: #000 url(bk_body.jpg);
+}
+
+.tbdotd #main {
+  position: relative;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  width: 270px;
+  font-size: 12px;
+}
+
+.tbdotd #apress {
+}
+
+.tbdotd #oreilly {
+}
+
+.tbdotd #manning {
+}
+
+.tbdotd #credit {
+  text-align: left;
+  left: 0;
+  bottom: 0;
+}
+
+.tbdotd a,
+.tbdotd a:visited {
+  color: #C3974E;
+  text-decoration: none;
+}
+
+.tbdotd a:hover {
+  color: #fdbc3f;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tbdotd .figure {
+  float: left;
+  width: 125px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.tbdotd .caption {
+  float: right;
+  width: 125px;
+  overflow: auto;
+}
+
+.tbdotd .vendor {
+  padding: 5px;
+  width: 100%;
+  overflow: hidden;
+}
