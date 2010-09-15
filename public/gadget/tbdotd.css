@@ -4,15 +4,14 @@
   overflow: hidden;
   font-family: sans-serif;
   color: #C3974E;
-  background: #000 url(bk_body.jpg);
+  background: #000 url(bk_rightbox.jpg);
 }
 
 .tbdotd #main {
   position: relative;
   left: 0;
   top: 0;
-  padding: 10px;
-  width: 270px;
+  width: 240px;
   font-size: 12px;
 }
 
@@ -26,8 +25,7 @@
 }
 
 .tbdotd #credit {
-  text-align: left;
-  left: 0;
+  text-align: center;
   bottom: 0;
 }
 
@@ -52,12 +50,13 @@
 
 .tbdotd .caption {
   float: right;
-  width: 125px;
+  width: 100px;
   overflow: auto;
+  margin-right: 5px;
 }
 
 .tbdotd .vendor {
-  padding: 5px;
   width: 100%;
   overflow: hidden;
+  padding: 5px;
 }
