@@ -30,13 +30,13 @@
     <div id="main">
       <div id="apress" class="vendor">
         <a id="apress_img_link" href="" target="_blank">
-          <img id="apress_img" class="figure" alt="Apress Book" width="125" height="164" />
+          <img id="apress_img" class="figure" alt="Apress Book" src="" width="125" height="164" />
         </a>
         <a id="apress_link" class="caption" href="http://apress.com" target="_blank">Apress</a>
       </div>
       <div id="oreilly" class="vendor">
         <a id="oreilly_img_link" href="" target="_blank">
-          <img id="oreilly_img" class="figure" alt="O'Reilly Book" width="125" height="164" />
+          <img id="oreilly_img" class="figure" alt="O'Reilly Book" src="" width="125" height="164" />
         </a>
         <a id="oreilly_link" class="caption" href="http://oreilly.com" target="_blank">O'Reilly</a>
       </div>
@@ -48,11 +48,10 @@
         <a target="_blank" href="http://techbooksdotd.heroku.com">Tech Books Deals of the Day</a>
       </div>
     </div>
-    <script src="http://techbooksdotd.heroku.com/gadget/jsonmin.js" type="text/javascript"></script>
     <script src="http://techbooksdotd.heroku.com/gadget/crossPlatform.js" type="text/javascript"></script>
     <script src="http://techbooksdotd.heroku.com/gadget/tbdotd.js" type="text/javascript"></script>
     ]]>
   </Content>
-
-  <Content type="url" view="canvas" href="http://techbooksdotd.heroku.com" />
+  <Content type="url" view="canvas" href="http://techbooksdotd.heroku.com">
+  </Content>
 </Module>
