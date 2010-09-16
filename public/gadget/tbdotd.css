@@ -29,6 +29,10 @@
   bottom: 0;
 }
 
+.tbdotd img {
+  border: none;
+}
+
 .tbdotd a,
 .tbdotd a:visited {
   color: #C3974E;
