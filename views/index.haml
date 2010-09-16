@@ -41,7 +41,7 @@
               %td
                 %a{ :title => deal.vendor_name, :href => deal.vendor_url }= deal.vendor_name
               %td
-                - if deal.url.nil?
+                - if deal.url.empty?
                   = deal.title
                 - else
                   %a{ :title => deal.title, :href => deal.url }= deal.title

@@ -88,6 +88,7 @@ def get_manning(content)
            :vendor_id => 'manning',
            :vendor_url => 'http://www.manning.com/', 
            :title => title, 
+           :url => '',
            :image_url => 'images/no_cover.png')
 end
 
