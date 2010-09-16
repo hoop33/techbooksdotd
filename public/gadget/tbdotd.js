@@ -39,7 +39,7 @@ tbdotd.receiveDeals = function(responseText) {
       window.setTimeout(tbdotd.load, tbdotd.delay);
     }
   } else {
-    var deals = (typeof responseText === "string") ? JSON.parse(responseText) : responseText;
+    var deals = (typeof responseText === "string") ? JSON.parse(responseText) : JSON.parse(responseText.text);
     for (var i = 0; i < deals.length; i++) {
       var deal = deals[i];
       tbdotd.updateDeal(deal);
