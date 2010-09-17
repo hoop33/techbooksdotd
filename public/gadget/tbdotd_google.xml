@@ -2,8 +2,8 @@
 <Module>
   <ModulePrefs title="Tech Books Deals of the Day"
     title_url="http://techbooksdotd.heroku.com"
-    height="500"
-    width="250"
+    height="535"
+    width="240"
     description="Shows the deals of the day for leading technology book publishers."
     category="technology"
     screenshot="http://techbooksdotd.heroku.com/gadget/tbdotd_screenshot.png"
