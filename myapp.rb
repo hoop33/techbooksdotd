@@ -89,7 +89,7 @@ def get_manning(content)
            :vendor_url => 'http://www.manning.com/', 
            :title => title, 
            :url => '',
-           :image_url => 'images/no_cover.png')
+           :image_url => '/images/manning.png')
 end
 
 def get_oreilly(content)

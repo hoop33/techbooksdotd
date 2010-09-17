@@ -12,21 +12,40 @@
   left: 0;
   top: 0;
   width: 240px;
+  height: 535px;
   font-size: 12px;
+  overflow: hidden;
 }
 
 .tbdotd #apress {
-}
-
-.tbdotd #oreilly {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  height: 164px;
 }
 
 .tbdotd #manning {
+  position: absolute;
+  left: 5px;
+  top: 174px;
+  height: 164px;
+}
+
+.tbdotd #oreilly {
+  position: absolute;
+  left: 5px;
+  top: 343px;
+  height: 164px;
 }
 
 .tbdotd #credit {
+  position: absolute;
+  left: 5px;
+  top: 512px;
+  width: 230px;
+  height: 23px;
   text-align: center;
-  bottom: 0;
+  vertical-align: middle;
 }
 
 .tbdotd img {
@@ -49,18 +68,18 @@
   float: left;
   width: 125px;
   font-size: 24px;
-  text-align: center;
+  height: 164px;
 }
 
 .tbdotd .caption {
   float: right;
   width: 100px;
-  overflow: auto;
-  margin-right: 5px;
+  height: 164px;
+  padding-right: 10px;
 }
 
 .tbdotd .vendor {
   width: 100%;
   overflow: hidden;
-  padding: 5px;
+  height: 164px;
 }

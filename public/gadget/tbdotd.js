@@ -11,6 +11,7 @@ tbdotd.elements = {
   'oreilly_img': null,
   'oreilly_link': null,
   'manning': null,
+  'manning_img': null,
   'manning_link': null,
   'credit': null
 };
