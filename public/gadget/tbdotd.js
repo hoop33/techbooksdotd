@@ -35,7 +35,7 @@ tbdotd.load = function() {
 };
 
 tbdotd.resize = function() {
-  if (crossPlatform.getWidth(window) > 250) {
+  if (crossPlatform.getWidth(window) >= 240) {
     tbdotd.elements["apress_link"].style.display = 'inline';
     tbdotd.elements["oreilly_link"].style.display = 'inline';
     tbdotd.elements["manning_img_link"].style.display = 'inline';
