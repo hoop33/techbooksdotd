@@ -11,9 +11,11 @@ tbdotd.elements = {
   'oreilly_img': null,
   'oreilly_link': null,
   'manning': null,
+  'manning_img_link': null,
   'manning_img': null,
   'manning_link': null,
-  'credit': null
+  'credit': null,
+  'credit_link': null
 };
 //tbdotd.url = 'http://localhost:4567/deals.json';
 tbdotd.url = 'http://techbooksdotd.heroku.com/deals.json';
@@ -23,12 +25,31 @@ tbdotd.init = function() {
   for (id in tbdotd.elements) {
     tbdotd.elements[id] = document.getElementById(id);
   }
+  crossPlatform.addHandler(window, 'resize', tbdotd.resize);
   tbdotd.load();
 };
 crossPlatform.addHandler(window, 'load', tbdotd.init);
 
 tbdotd.load = function() {
   crossPlatform.fetchText(tbdotd.url, tbdotd.receiveDeals);
+};
+
+tbdotd.resize = function() {
+  if (crossPlatform.getWidth(window) > 250) {
+    tbdotd.elements["apress_link"].style.display = 'inline';
+    tbdotd.elements["oreilly_link"].style.display = 'inline';
+    tbdotd.elements["manning_img_link"].style.display = 'inline';
+    tbdotd.elements["manning_link"].style.float = 'right';
+    tbdotd.elements["manning_link"].style.width = '100px';
+    tbdotd.elements["credit_link"].innerHTML = 'Tech Books Deals of the Day';
+  } else {
+    tbdotd.elements["apress_link"].style.display = 'none';
+    tbdotd.elements["oreilly_link"].style.display = 'none';
+    tbdotd.elements["manning_img_link"].style.display = 'none';
+    tbdotd.elements["manning_link"].style.float = 'left';
+    tbdotd.elements["manning_link"].style.width = '125px';
+    tbdotd.elements["credit_link"].innerHTML = 'TBDOTD';
+  }
 };
 
 tbdotd.receiveDeals = function(responseText) {
@@ -46,6 +67,8 @@ tbdotd.receiveDeals = function(responseText) {
       tbdotd.updateDeal(deal);
     };
   }
+  tbdotd.resize();
+
   // Refresh every hour
   if (!!tbdotd.timeout) {
     window.clearTimeout(tbdotd.timeout);
