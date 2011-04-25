@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../myapp.rb"
+require File.dirname(__FILE__) + "/../techbooksdotd.rb"
 require 'test/unit'
 require 'rack/test'
 
@@ -56,7 +56,7 @@ class OreillyTest < Test::Unit::TestCase
 </entry> 
  
 <entry> 
-    <title>Ebook Deal of the Day: Developing Service-Oriented AJAX Applications on the Microsoft® Platform - Only $9.99! Use code DDDSA</title> 
+    <title>Ebook Deal of the Day: Developing Service-Oriented AJAX Applications on the Microsoft Platform - Only $9.99! Use code DDDSA</title>
     <link rel="alternate" type="text/html" href="http://oreilly.com/catalog/9780735625914/" /> 
     <id>tag:blogs.oreilly.com,2010:/dealoftheday//74.39326</id> 
     <published>2010-03-23T06:30:00Z</published> 
@@ -280,7 +280,7 @@ class OreillyTest < Test::Unit::TestCase
 EODOC
 
     deal = get_oreilly(content)
-    assert_equal "O'Reilly", deal.vendor
+    assert_equal "O'Reilly", deal.vendor_name
     assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal 'Ebook Deal of the Day: Regular Expressions Cookbook - Only $9.99! Use code DDREC', deal.title
     assert_equal 'http://oreilly.com/catalog/9780596520694/', deal.url
@@ -289,7 +289,7 @@ EODOC
   def test_it_parses_oreilly_nil
     content = nil
     deal = get_oreilly(content)
-    assert_equal "O'Reilly", deal.vendor
+    assert_equal "O'Reilly", deal.vendor_name
     assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal "No results -- check O'Reilly site", deal.title
     assert_equal 'http://www.oreilly.com/', deal.url
@@ -298,7 +298,7 @@ EODOC
   def test_it_parses_oreilly_empty
     content = ''
     deal = get_oreilly(content)
-    assert_equal "O'Reilly", deal.vendor
+    assert_equal "O'Reilly", deal.vendor_name
     assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal "No results -- check O'Reilly site", deal.title
     assert_equal 'http://www.oreilly.com/', deal.url
@@ -307,7 +307,7 @@ EODOC
   def test_it_parses_oreilly_bad
     content = 'Does not contain the data'
     deal = get_oreilly(content)
-    assert_equal "O'Reilly", deal.vendor
+    assert_equal "O'Reilly", deal.vendor_name
     assert_equal 'http://www.oreilly.com/', deal.vendor_url
     assert_equal "No results -- check O'Reilly site", deal.title
     assert_equal 'http://www.oreilly.com/', deal.url

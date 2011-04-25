@@ -58,24 +58,25 @@ end
 
 def get_deals
   deals = Array.new
-  deals << get_apress(open('http://apress.com/info/dailydeal').read)
+  deals << get_apress(open('http://www.apress.com/').read)
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
 end
 
 def get_apress(content)
-  matches = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>(.*?)\<\/a.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)
+#  matches = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>(.*?)\<\/a.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)
+  matches = /.*\<a href.*?apress\.com\/dailydeal\/"\>\<img .*?src="(.*?)" alt="(.*?)".*/m.match(content)
   if matches.nil?
     return @@apress_deal
   end
 
-  url_part, title, image_url_part = matches.captures()
+  image_url, title = matches.captures()
   Deal.new(:vendor_name => 'Apress', 
            :vendor_id => 'apress', 
            :vendor_url => 'http://www.apress.com/', 
            :title => title, 
-           :url => "http://apress.com#{url_part}", 
-           :image_url => "http://apress.com#{image_url_part}")
+           :url => 'http://www.apress.com/dailydeal',
+           :image_url => image_url)
 end
 
 def get_manning(content)

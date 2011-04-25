@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../myapp.rb"
+require File.dirname(__FILE__) + "/../techbooksdotd.rb"
 require 'test/unit'
 require 'rack/test'
 
@@ -17,16 +17,16 @@ class ManningTest < Test::Unit::TestCase
 EODOC
 
     deal = get_manning(content)
-    assert_equal 'Manning', deal.vendor
+    assert_equal 'Manning', deal.vendor_name
     assert_equal 'http://www.manning.com/', deal.vendor_url
     assert_equal "<a href='http://www.manning.com/cahill/'>iPhone in Practice</a><BR>  $15 off the MEAP and Print book edition.  Enter <b>dotd0325</b> in the Promotional Code box", deal.title
-    assert_nil deal.url
+    assert_equal "", deal.url
   end
   
   def test_it_parses_manning_nil
     content = nil
     deal = get_manning(content)
-    assert_equal 'Manning', deal.vendor
+    assert_equal 'Manning', deal.vendor_name
     assert_equal 'http://www.manning.com/', deal.vendor_url
     assert_equal 'No results -- check Manning site', deal.title
     assert_equal 'http://www.manning.com/', deal.url
@@ -35,7 +35,7 @@ EODOC
   def test_it_parses_manning_empty
     content = ''
     deal = get_manning(content)
-    assert_equal 'Manning', deal.vendor
+    assert_equal 'Manning', deal.vendor_name
     assert_equal 'http://www.manning.com/', deal.vendor_url
     assert_equal 'No results -- check Manning site', deal.title
     assert_equal 'http://www.manning.com/', deal.url
@@ -44,7 +44,7 @@ EODOC
   def test_it_parses_manning_bad
     content = 'Does not contain the data'
     deal = get_manning(content)
-    assert_equal 'Manning', deal.vendor
+    assert_equal 'Manning', deal.vendor_name
     assert_equal 'http://www.manning.com/', deal.vendor_url
     assert_equal 'No results -- check Manning site', deal.title
     assert_equal 'http://www.manning.com/', deal.url
