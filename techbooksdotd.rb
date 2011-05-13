@@ -94,7 +94,7 @@ def get_informit(content)
                     :vendor_url => 'http://www.informit.com/',
                     :title => entry.title,
                     :url => entry.link,
-                    :image_url => "http://covers.oreilly.com/images/#{entry.link.split(/\//)[-1]}/cat.gif")
+                    :image_url => 'http://techbooksdotd.heroku.com/images/informit.png')
   rescue SimpleRSSError
     return @@informit_deal
   end
