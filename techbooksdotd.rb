@@ -22,6 +22,11 @@ require File.dirname(__FILE__) + "/./deal.rb"
                           :vendor_url => 'http://www.oreilly.com/',
                           :title => "No results -- check O'Reilly site", 
                           :url => 'http://www.oreilly.com/')
+@@informit_deal = Deal.new(:vendor_name => 'informIT',
+                           :vendor_id => 'informit',
+                           :vendor_url => 'http://www.informit.com/deals/',
+                           :title => 'No results -- check informIT site',
+                           :url => 'http://www.informit.com/deals/')
 
 get '/' do
   @deals = get_deals
@@ -59,12 +64,12 @@ end
 def get_deals
   deals = Array.new
   deals << get_apress(open('http://www.apress.com/').read)
+  deals << get_informit(open('http://www.informit.com/deals/deal_rss.aspx'))
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
 end
 
 def get_apress(content)
-#  matches = /.*\<div class='bookdetails'\>.*?\<a href='(.*?)'\>(.*?)\<\/a.*\<div class='cover'\>.*?\<img.*?src="(.*?)".*/m.match(content)
   matches = /.*\<a href.*?apress\.com\/dailydeal\/"\>\<img .*?src="(.*?)" alt="(.*?)".*/m.match(content)
   if matches.nil?
     return @@apress_deal
@@ -77,6 +82,22 @@ def get_apress(content)
            :title => title, 
            :url => 'http://www.apress.com/dailydeal',
            :image_url => image_url)
+end
+
+def get_informit(content)
+  begin
+    rss = SimpleRSS.parse content
+    entry = rss.entries.first
+
+    return Deal.new(:vendor_name => "InformIT",
+                    :vendor_id => 'informit',
+                    :vendor_url => 'http://www.informit.com/',
+                    :title => entry.title,
+                    :url => entry.link,
+                    :image_url => "http://covers.oreilly.com/images/#{entry.link.split(/\//)[-1]}/cat.gif")
+  rescue SimpleRSSError
+    return @@informit_deal
+  end
 end
 
 def get_manning(content)
@@ -98,12 +119,14 @@ def get_oreilly(content)
     rss = SimpleRSS.parse content
     entry = rss.entries.first
 
+    puts entry.content
+    matches = /.*?img src=\"(.*?)\".*/m.match(entry.content)
     return Deal.new(:vendor_name => "O'Reilly", 
                     :vendor_id => 'oreilly',
                     :vendor_url => 'http://www.oreilly.com/',
                     :title => entry.title, 
                     :url => entry.link, 
-                    :image_url => "http://covers.oreilly.com/images/#{entry.link.split(/\//)[-1]}/cat.gif")
+                    :image_url => matches[1])
   rescue SimpleRSSError
     return @@oreilly_deal
   end
