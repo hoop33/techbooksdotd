@@ -6,6 +6,10 @@ tbdotd.elements = {
   'apress_img_link': null,
   'apress_img': null,
   'apress_link': null,
+  'informit': null,
+  'informit_img_link': null,
+  'informit_img': null,
+  'informit_link': null,
   'oreilly': null,
   'oreilly_img_link': null,
   'oreilly_img': null,
@@ -37,6 +41,7 @@ tbdotd.load = function() {
 tbdotd.resize = function() {
   if (crossPlatform.getWidth(window) >= 240) {
     tbdotd.elements["apress_link"].style.display = 'inline';
+    tbdotd.elements["informit_link"].style.display = 'inline';
     tbdotd.elements["oreilly_link"].style.display = 'inline';
     tbdotd.elements["manning_img_link"].style.display = 'inline';
     tbdotd.elements["manning_link"].style.float = 'right';
@@ -44,6 +49,7 @@ tbdotd.resize = function() {
     tbdotd.elements["credit_link"].innerHTML = 'Tech Books Deals of the Day';
   } else {
     tbdotd.elements["apress_link"].style.display = 'none';
+    tbdotd.elements["informit_link"].style.display = 'none';
     tbdotd.elements["oreilly_link"].style.display = 'none';
     tbdotd.elements["manning_img_link"].style.display = 'none';
     tbdotd.elements["manning_link"].style.float = 'left';

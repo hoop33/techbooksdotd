@@ -12,7 +12,7 @@
   left: 0;
   top: 0;
   width: 240px;
-  height: 535px;
+  height: 704px;
   font-size: 12px;
   overflow: hidden;
 }
@@ -24,24 +24,31 @@
   height: 164px;
 }
 
-.tbdotd #manning {
+.tbdotd #informit {
   position: absolute;
   left: 5px;
   top: 174px;
   height: 164px;
 }
 
-.tbdotd #oreilly {
+.tbdotd #manning {
   position: absolute;
   left: 5px;
   top: 343px;
   height: 164px;
 }
 
-.tbdotd #credit {
+.tbdotd #oreilly {
   position: absolute;
   left: 5px;
   top: 512px;
+  height: 164px;
+}
+
+.tbdotd #credit {
+  position: absolute;
+  left: 5px;
+  top: 681px;
   height: 23px;
 }
 
