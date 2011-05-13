@@ -22,10 +22,10 @@ require File.dirname(__FILE__) + "/./deal.rb"
                           :vendor_url => 'http://www.oreilly.com/',
                           :title => "No results -- check O'Reilly site", 
                           :url => 'http://www.oreilly.com/')
-@@informit_deal = Deal.new(:vendor_name => 'informIT',
+@@informit_deal = Deal.new(:vendor_name => 'InformIT',
                            :vendor_id => 'informit',
                            :vendor_url => 'http://www.informit.com/deals/',
-                           :title => 'No results -- check informIT site',
+                           :title => 'No results -- check InformIT site',
                            :url => 'http://www.informit.com/deals/')
 
 get '/' do
