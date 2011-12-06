@@ -70,17 +70,19 @@ def get_deals
 end
 
 def get_apress(content)
-  matches = /.*\<a href.*?apress\.com\/dailydeal\/"\>\<img .*?src="(.*?)" alt="(.*?)".*/m.match(content)
+  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+  content = ic.iconv(content)
+  matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
   if matches.nil?
     return @@apress_deal
   end
 
-  image_url, title = matches.captures()
+  url, image_url, title = matches.captures()
   Deal.new(:vendor_name => 'Apress', 
            :vendor_id => 'apress', 
            :vendor_url => 'http://www.apress.com/', 
            :title => title, 
-           :url => 'http://www.apress.com/dailydeal',
+           :url => url,
            :image_url => image_url)
 end
 
