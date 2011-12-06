@@ -121,7 +121,7 @@ def get_oreilly(content)
     rss = SimpleRSS.parse content
     entry = rss.entries.first
 
-    matches = /.*?img src=\"(.*?)\".*/m.match(entry.content)
+    matches = /.*?img src=[\'|\"](.*?)[\'|\"].*/m.match(entry.content)
     return Deal.new(:vendor_name => "O'Reilly", 
                     :vendor_id => 'oreilly',
                     :vendor_url => 'http://www.oreilly.com/',
