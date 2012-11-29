@@ -5,22 +5,23 @@ require 'haml'
 require 'simple-rss'
 require 'open-uri'
 require 'json'
+require 'iconv'
 require File.dirname(__FILE__) + "/./deal.rb"
 
-@@manning_deal = Deal.new(:vendor_name => 'Manning', 
+@@manning_deal = Deal.new(:vendor_name => 'Manning',
                           :vendor_id => 'manning',
                           :vendor_url => 'http://www.manning.com/',
-                          :title => 'No results -- check Manning site', 
+                          :title => 'No results -- check Manning site',
                           :url => 'http://www.manning.com/')
-@@apress_deal = Deal.new(:vendor_name => 'Apress', 
+@@apress_deal = Deal.new(:vendor_name => 'Apress',
                          :vendor_id => 'apress',
                          :vendor_url => 'http://www.apress.com/',
-                         :title => 'No results -- check Apress site', 
+                         :title => 'No results -- check Apress site',
                          :url => 'http://www.apress.com/')
-@@oreilly_deal = Deal.new(:vendor_name => "O'Reilly", 
+@@oreilly_deal = Deal.new(:vendor_name => "O'Reilly",
                           :vendor_id => 'oreilly',
                           :vendor_url => 'http://www.oreilly.com/',
-                          :title => "No results -- check O'Reilly site", 
+                          :title => "No results -- check O'Reilly site",
                           :url => 'http://www.oreilly.com/')
 @@informit_deal = Deal.new(:vendor_name => 'InformIT',
                            :vendor_id => 'informit',
@@ -78,10 +79,10 @@ def get_apress(content)
   end
 
   url, image_url, title = matches.captures()
-  Deal.new(:vendor_name => 'Apress', 
-           :vendor_id => 'apress', 
-           :vendor_url => 'http://www.apress.com/', 
-           :title => title, 
+  Deal.new(:vendor_name => 'Apress',
+           :vendor_id => 'apress',
+           :vendor_url => 'http://www.apress.com/',
+           :title => title,
            :url => url,
            :image_url => image_url)
 end
@@ -108,10 +109,10 @@ def get_manning(content)
     return @@manning_deal
   end
   title = matches[1]
-  Deal.new(:vendor_name => 'Manning', 
+  Deal.new(:vendor_name => 'Manning',
            :vendor_id => 'manning',
-           :vendor_url => 'http://www.manning.com/', 
-           :title => title, 
+           :vendor_url => 'http://www.manning.com/',
+           :title => title,
            :url => '',
            :image_url => 'http://techbooksdotd.heroku.com/images/manning.png')
 end
@@ -122,11 +123,11 @@ def get_oreilly(content)
     entry = rss.entries.first
 
     matches = /.*?img src=[\'|\"](.*?)[\'|\"].*/m.match(entry.content)
-    return Deal.new(:vendor_name => "O'Reilly", 
+    return Deal.new(:vendor_name => "O'Reilly",
                     :vendor_id => 'oreilly',
                     :vendor_url => 'http://www.oreilly.com/',
-                    :title => entry.title, 
-                    :url => entry.link, 
+                    :title => entry.title,
+                    :url => entry.link,
                     :image_url => matches[1])
   rescue SimpleRSSError
     return @@oreilly_deal
