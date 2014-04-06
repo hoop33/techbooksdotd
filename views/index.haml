@@ -37,7 +37,7 @@
           - @deals.each do |deal|
             %tr
               %td
-                %img{ :src => deal.image_url } 
+                %img{ :src => deal.image_url, :height => '150' } 
               %td
                 %a{ :title => deal.vendor_name, :href => deal.vendor_url }= deal.vendor_name
               %td
@@ -50,6 +50,6 @@
         %p
           Not responsible for titles or prices displayed. Data pulled from respective vendor sites. Please check appropriate site before purchasing.
         %p
-          Tech Books Deals of the Day by Rob Warner. 
-          
+          Tech Books Deals of the Day by Rob Warner.
+
     %script{ :type => 'text/javascript', :src => 'javascript/analytics.js' }
