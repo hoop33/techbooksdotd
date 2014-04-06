@@ -27,6 +27,11 @@ require File.dirname(__FILE__) + "/./deal.rb"
                            :vendor_url => 'http://www.informit.com/deals/',
                            :title => 'No results -- check InformIT site',
                            :url => 'http://www.informit.com/deals/')
+@@peachpit_deal = Deal.new(:vendor_name => "Peachpit",
+                           :vendor_id => 'peachpit',
+                           :vendor_url => 'http://www.peachpit.com/',
+                           :title => 'No results -- check Peachpit site',
+                           :url => 'http://www.peachpit.com/')
 
 get '/' do
   @deals = get_deals
@@ -64,13 +69,14 @@ end
 def get_deals
   deals = Array.new
   deals << get_apress(open('http://www.apress.com/').read)
-  deals << get_informit(open('http://www.informit.com/deals/deal_rss.aspx'))
+  deals << get_informit(open('http://www.informit.com').read)
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
+  deals << get_peachpit(open('http://www.peachpit.com').read)
 end
 
 def get_apress(content)
-  content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?") 
+  content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
   if matches.nil?
     return @@apress_deal
@@ -87,17 +93,18 @@ end
 
 def get_informit(content)
   begin
-    rss = SimpleRSS.parse content
-    entry = rss.entries.first
-
-    return Deal.new(:vendor_name => "InformIT",
-                    :vendor_id => 'informit',
-                    :vendor_url => 'http://www.informit.com/',
-                    :title => entry.title,
-                    :url => entry.link,
-                    :image_url => 'http://techbooksdotd.heroku.com/images/informit.png')
-  rescue SimpleRSSError
-    return @@informit_deal
+    matches = /<a href="\/deals".*">[\s]*<img src="(.*)"[\s]+alt="(.*)"[\s]+.*class="(.*)"/.match(content)
+    if matches.nil?
+      return @@informit_deal
+    end
+    image_url = 'http://www.informit.com' + matches[1]
+    title = matches[2]
+    Deal.new(:vendor_name => "InformIT",
+             :vendor_id => 'informit',
+             :vendor_url => 'http://www.informit.com/',
+             :title => title,
+             :url => 'http://www.informit.com/deals',
+             :image_url => image_url)
   end
 end
 
@@ -129,5 +136,22 @@ def get_oreilly(content)
                     :image_url => matches[1])
   rescue SimpleRSSError
     return @@oreilly_deal
+  end
+end
+
+def get_peachpit(content)
+  begin
+    matches = /<a href="\/deals".*">[\s]*<img src="(.*)"[\s]+alt="(.*)"[\s]+.*class="(.*)"/.match(content)
+    if matches.nil?
+      return @@peachpit_deal
+    end
+    image_url = 'http://www.peachpit.com' + matches[1]
+    title = matches[2]
+    Deal.new(:vendor_name => "Peachpit",
+             :vendor_id => 'peachpit',
+             :vendor_url => 'http://www.peachpit.com/',
+             :title => title,
+             :url => 'http://www.peachpit.com/deals',
+             :image_url => image_url)
   end
 end
