@@ -5,7 +5,6 @@ require 'haml'
 require 'simple-rss'
 require 'open-uri'
 require 'json'
-require 'iconv'
 require File.dirname(__FILE__) + "/./deal.rb"
 
 @@manning_deal = Deal.new(:vendor_name => 'Manning',
@@ -71,8 +70,7 @@ def get_deals
 end
 
 def get_apress(content)
-  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
-  content = ic.iconv(content)
+  content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?") 
   matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
   if matches.nil?
     return @@apress_deal
