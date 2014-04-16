@@ -7,27 +7,27 @@ require 'open-uri'
 require 'json'
 require File.dirname(__FILE__) + "/./deal.rb"
 
-@@manning_deal = Deal.new(:vendor_name => 'Manning',
+$manning_deal = Deal.new(:vendor_name => 'Manning',
                           :vendor_id => 'manning',
                           :vendor_url => 'http://www.manning.com/',
                           :title => 'No results -- check Manning site',
                           :url => 'http://www.manning.com/')
-@@apress_deal = Deal.new(:vendor_name => 'Apress',
+$apress_deal = Deal.new(:vendor_name => 'Apress',
                          :vendor_id => 'apress',
                          :vendor_url => 'http://www.apress.com/',
                          :title => 'No results -- check Apress site',
                          :url => 'http://www.apress.com/')
-@@oreilly_deal = Deal.new(:vendor_name => "O'Reilly",
+$oreilly_deal = Deal.new(:vendor_name => "O'Reilly",
                           :vendor_id => 'oreilly',
                           :vendor_url => 'http://www.oreilly.com/',
                           :title => "No results -- check O'Reilly site",
                           :url => 'http://www.oreilly.com/')
-@@informit_deal = Deal.new(:vendor_name => 'InformIT',
+$informit_deal = Deal.new(:vendor_name => 'InformIT',
                            :vendor_id => 'informit',
                            :vendor_url => 'http://www.informit.com/deals/',
                            :title => 'No results -- check InformIT site',
                            :url => 'http://www.informit.com/deals/')
-@@peachpit_deal = Deal.new(:vendor_name => "Peachpit",
+$peachpit_deal = Deal.new(:vendor_name => "Peachpit",
                            :vendor_id => 'peachpit',
                            :vendor_url => 'http://www.peachpit.com/',
                            :title => 'No results -- check Peachpit site',
@@ -79,7 +79,7 @@ def get_apress(content)
   content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
   if matches.nil?
-    return @@apress_deal
+    return $apress_deal
   end
 
   url, image_url, title = matches.captures()
@@ -95,7 +95,7 @@ def get_informit(content)
   begin
     matches = /<a href="\/deals".*">[\s]*<img src="(.*)"[\s]+alt="(.*)"[\s]+.*class="(.*)"/.match(content)
     if matches.nil?
-      return @@informit_deal
+      return $informit_deal
     end
     image_url = 'http://www.informit.com' + matches[1]
     title = matches[2]
@@ -111,7 +111,7 @@ end
 def get_manning(content)
   matches = /.*?(\<a href=.*?Promotional Code box).*/m.match(content)
   if matches.nil?
-    return @@manning_deal
+    return $manning_deal
   end
   title = matches[1]
   Deal.new(:vendor_name => 'Manning',
@@ -135,7 +135,7 @@ def get_oreilly(content)
                     :url => entry.link,
                     :image_url => matches[1])
   rescue SimpleRSSError
-    return @@oreilly_deal
+    return $oreilly_deal
   end
 end
 
@@ -143,7 +143,7 @@ def get_peachpit(content)
   begin
     matches = /<a href="\/deals".*">[\s]*<img src="(.*)"[\s]+alt="(.*)"[\s]+.*class="(.*)"/.match(content)
     if matches.nil?
-      return @@peachpit_deal
+      return $peachpit_deal
     end
     image_url = 'http://www.peachpit.com' + matches[1]
     title = matches[2]
