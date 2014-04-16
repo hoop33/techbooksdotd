@@ -8,30 +8,30 @@ require 'json'
 require File.dirname(__FILE__) + "/./deal.rb"
 
 $manning_deal = Deal.new(:vendor_name => 'Manning',
-                          :vendor_id => 'manning',
-                          :vendor_url => 'http://www.manning.com/',
-                          :title => 'No results -- check Manning site',
-                          :url => 'http://www.manning.com/')
+                         :vendor_id => 'manning',
+                         :vendor_url => 'http://www.manning.com/',
+                         :title => 'No results -- check Manning site',
+                         :url => 'http://www.manning.com/')
 $apress_deal = Deal.new(:vendor_name => 'Apress',
-                         :vendor_id => 'apress',
-                         :vendor_url => 'http://www.apress.com/',
-                         :title => 'No results -- check Apress site',
-                         :url => 'http://www.apress.com/')
+                        :vendor_id => 'apress',
+                        :vendor_url => 'http://www.apress.com/',
+                        :title => 'No results -- check Apress site',
+                        :url => 'http://www.apress.com/')
 $oreilly_deal = Deal.new(:vendor_name => "O'Reilly",
-                          :vendor_id => 'oreilly',
-                          :vendor_url => 'http://www.oreilly.com/',
-                          :title => "No results -- check O'Reilly site",
-                          :url => 'http://www.oreilly.com/')
+                         :vendor_id => 'oreilly',
+                         :vendor_url => 'http://www.oreilly.com/',
+                         :title => "No results -- check O'Reilly site",
+                         :url => 'http://www.oreilly.com/')
 $informit_deal = Deal.new(:vendor_name => 'InformIT',
-                           :vendor_id => 'informit',
-                           :vendor_url => 'http://www.informit.com/deals/',
-                           :title => 'No results -- check InformIT site',
-                           :url => 'http://www.informit.com/deals/')
+                          :vendor_id => 'informit',
+                          :vendor_url => 'http://www.informit.com/deals/',
+                          :title => 'No results -- check InformIT site',
+                          :url => 'http://www.informit.com/deals/')
 $peachpit_deal = Deal.new(:vendor_name => "Peachpit",
-                           :vendor_id => 'peachpit',
-                           :vendor_url => 'http://www.peachpit.com/',
-                           :title => 'No results -- check Peachpit site',
-                           :url => 'http://www.peachpit.com/')
+                          :vendor_id => 'peachpit',
+                          :vendor_url => 'http://www.peachpit.com/',
+                          :title => 'No results -- check Peachpit site',
+                          :url => 'http://www.peachpit.com/')
 
 get '/' do
   @deals = get_deals
