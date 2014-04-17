@@ -24,6 +24,19 @@ EODOC
     assert_equal "", deal.url
   end
   
+  def test_it_parses_manning_with_no_image
+    content = <<EODOC
+      document.write("April 16, 2014<br><br><b><a href='http://deals.manningpublications.com/showusyourshelf.html'>Data Science Day!</a></b><br><br>Enhance your library with 50% off these selected book on functional programming<br><br>Enter dotd041614 in the Promotional Code box when you check out")
+EODOC
+
+    deal = get_manning(content)
+    assert_equal 'Manning', deal.vendor_name
+    assert_equal 'http://www.manning.com/', deal.vendor_url
+    assert_equal "<a href='http://deals.manningpublications.com/showusyourshelf.html'>Data Science Day!</a></b><br><br>Enhance your library with 50% off these selected book on functional programming<br><br>Enter dotd041614 in the Promotional Code box", deal.title
+    assert_equal "http://techbooksdotd.herokuapp.com/images/manning.png", deal.image_url
+    assert_equal "", deal.url
+  end
+
   def test_it_parses_manning_nil
     content = nil
     deal = get_manning(content)
