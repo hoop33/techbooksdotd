@@ -148,6 +148,9 @@ def get_oreilly(content)
     entry = rss.entries.first
 
     matches = /.*?img src=[\'|\"](.*?)[\'|\"].*/m.match(entry.content)
+    if matches.nil?
+      return $oreilly_deal
+    end
     return Deal.new(:vendor_name => "O'Reilly",
                     :vendor_id => 'oreilly',
                     :vendor_url => 'http://www.oreilly.com/',
