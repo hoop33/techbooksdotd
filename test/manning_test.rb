@@ -20,6 +20,7 @@ EODOC
     assert_equal 'Manning', deal.vendor_name
     assert_equal 'http://www.manning.com/', deal.vendor_url
     assert_equal "<a href='http://www.manning.com/cahill/'>iPhone in Practice</a><BR>  $15 off the MEAP and Print book edition.  Enter <b>dotd0325</b> in the Promotional Code box", deal.title
+    assert_equal "http://www.manning.com/cahill/cahill_cover150.jpg", deal.image_url
     assert_equal "", deal.url
   end
   
