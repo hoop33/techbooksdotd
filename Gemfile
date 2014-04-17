@@ -6,3 +6,7 @@ gem 'simple-rss'
 gem 'json'
 gem 'builder'
 gem 'rack'
+
+group :test do
+  gem 'rack-test'
+end
