@@ -50,7 +50,7 @@ get '/rss.xml' do
       xml.channel do
         xml.title "Tech Books Deals of the Day"
         xml.description "Publishes the Deals of the Day from leading technology book publishers"
-        xml.link "http://techbooksdotd.heroku.com/"
+        xml.link "http://techbooksdotd.herokuapp.com/"
 
         @deals = get_deals
         @deals.each do |deal|
@@ -109,17 +109,32 @@ def get_informit(content)
 end
 
 def get_manning(content)
+  # Get the deal itself to show in the Manning Title box
   matches = /.*?(\<a href=.*?Promotional Code box).*/m.match(content)
   if matches.nil?
     return $manning_deal
   end
   title = matches[1]
+
+  # Set the fallback book image cover
+  image_url = 'http://techbooksdotd.herokuapp.com/images/manning.png'
+  
+  # Try to get a book cover image
+  matches = /\<a href='(.*)'.*/m.match(title)
+  if not matches.nil?
+    base_image_url = matches[1]
+    matches = /http:\/\/www\.manning\.com\/(.*)\/.*/m.match(base_image_url)
+    if not matches.nil?
+      image_url = base_image_url + matches[1] + '_cover150.jpg'
+    end
+  end
+
   Deal.new(:vendor_name => 'Manning',
-           :vendor_id => 'manning',
-           :vendor_url => 'http://www.manning.com/',
-           :title => title,
-           :url => '',
-           :image_url => 'http://techbooksdotd.heroku.com/images/manning.png')
+          :vendor_id => 'manning',
+          :vendor_url => 'http://www.manning.com/',
+          :title => title,
+          :url => '',
+          :image_url => image_url)
 end
 
 def get_oreilly(content)
