@@ -76,6 +76,11 @@ def get_deals
 end
 
 def get_apress(content)
+  # If the content is blank, return the standard Apress deal
+  if content.nil?
+    return $apress_deal
+  end
+
   content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
   if matches.nil?
