@@ -11,7 +11,8 @@ $manning_deal = Deal.new(:vendor_name => 'Manning',
                          :vendor_id => 'manning',
                          :vendor_url => 'http://www.manning.com/',
                          :title => 'No results -- check Manning site',
-                         :url => 'http://www.manning.com/')
+                         :url => 'http://www.manning.com/',
+                         :image_url => 'http://techbooksdotd.herokuapp.com/images/manning.png')
 $apress_deal = Deal.new(:vendor_name => 'Apress',
                         :vendor_id => 'apress',
                         :vendor_url => 'http://www.apress.com/',
@@ -37,6 +38,11 @@ $springer_deal = Deal.new(:vendor_name => 'Springer',
                         :vendor_url => 'http://www.apress.com/',
                         :title => 'No results -- check Apress site',
                         :url => 'http://www.apress.com/')
+$oreilly_ms_deal = Deal.new(:vendor_name => "O'Reilly",
+                         :vendor_id => 'oreilly',
+                         :vendor_url => 'http://www.oreilly.com/',
+                         :title => "No results -- check O'Reilly site",
+                         :url => 'http://www.oreilly.com/')
 
 get '/' do
   @deals = get_deals
@@ -77,6 +83,7 @@ def get_deals
   deals << get_informit(open('http://www.informit.com').read)
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
+  deals << get_oreilly_ms(open('http://www.oreilly.com').read)
   deals << get_peachpit(open('http://www.peachpit.com').read)
   deals << get_springer(open('http://www.apress.com/').read)
 end
@@ -203,6 +210,29 @@ def get_springer(content)
   Deal.new(:vendor_name => 'Springer',
            :vendor_id => 'apress',
            :vendor_url => 'http://www.apress.com/',
+           :title => title,
+           :url => url,
+           :image_url => image_url)
+end
+
+def get_oreilly_ms(content)
+  # If the content is blank, return the standard O'Reilly deal
+  if content.nil?
+    return $oreilly_ms_deal
+  end
+
+  content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
+  content = content.force_encoding('UTF-8').encode('UTF-16', :invalid => :replace, :replace => '').encode('UTF-8')
+  matches = /\<a.*href="(.*MSDEAL)".*\>\<img[\s]+alt=".*"[\s]+src="(.*)"[\s]+.*class=".*"\>\<\/a\>.*<a.*href=".*MSDEAL".*>(.*)<\/a>/.match(content)
+  if matches.nil?
+    return $oreilly_ms_deal
+  end
+  url = matches[1]
+  image_url = matches[2]
+  title = matches[3]
+  Deal.new(:vendor_name => "O'Reilly",
+           :vendor_id => 'oreilly',
+           :vendor_url => 'http://www.oreilly.com/',
            :title => title,
            :url => url,
            :image_url => image_url)
