@@ -36,12 +36,12 @@ $peachpit_deal = Deal.new(:vendor_name => "Peachpit",
 $springer_deal = Deal.new(:vendor_name => 'Springer',
                         :vendor_id => 'apress',
                         :vendor_url => 'http://www.apress.com/',
-                        :title => 'No results -- check Apress site',
+                        :title => 'No results for Springer DOTD -- check Apress site',
                         :url => 'http://www.apress.com/')
 $oreilly_ms_deal = Deal.new(:vendor_name => "O'Reilly",
                          :vendor_id => 'oreilly',
                          :vendor_url => 'http://www.oreilly.com/',
-                         :title => "No results -- check O'Reilly site",
+                         :title => "No results for Microsoft DOTD -- check O'Reilly site",
                          :url => 'http://www.oreilly.com/')
 
 get '/' do
