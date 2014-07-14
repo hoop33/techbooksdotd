@@ -139,13 +139,9 @@ def get_manning(content)
   image_url = 'http://techbooksdotd.herokuapp.com/images/manning.png'
   
   # Try to get a book cover image
-  matches = /\<a href='(.*)'.*/m.match(title)
+  matches = /\<img src[\s]*=[\s]*'(.*)'/m.match(title)
   if not matches.nil?
-    base_image_url = matches[1]
-    matches = /http:\/\/www\.manning\.com\/(.*)\/.*/m.match(base_image_url)
-    if not matches.nil?
-      image_url = base_image_url + matches[1] + '_cover150.jpg'
-    end
+    image_url = matches[1]
   end
 
   Deal.new(:vendor_name => 'Manning',
