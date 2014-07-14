@@ -18,7 +18,7 @@ Now, open a browser to [http://localhost:4567](http://localhost:4567) to see the
 
 ## Thanks
 
-Thanks to Vance ([https://github.com/aroc725](https://github.com/aroc725)) for adding Peachpit. This code also was repurposed for InformIT to display the InformIT book's cover instead of the InformIT logo.
+Thanks to Vance ([https://github.com/aroc725](https://github.com/aroc725)) for adding Peachpit. This code also was repurposed for InformIT to display the InformIT book's cover instead of the InformIT logo. Also thanks to him for staying on top of various website idiosyncrasies.
 
 ## License
 
