@@ -144,6 +144,11 @@ def get_manning(content)
     image_url = matches[1]
   end
 
+  # Now update the title so it doesn't include the image tag
+  title = title.sub /\<img src[\s]*=[\s]*'(.*)'\>/, ''
+  # or a hyperlink without text
+  title = title.sub /<br><a href='http:\/\/manning.com\/.*'><\/a><br>/, ''
+
   Deal.new(:vendor_name => 'Manning',
           :vendor_id => 'manning',
           :vendor_url => 'http://www.manning.com/',
