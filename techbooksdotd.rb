@@ -96,12 +96,18 @@ def get_apress(content)
 
   content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   content = content.force_encoding('UTF-8').encode('UTF-16', :invalid => :replace, :replace => '').encode('UTF-8')
-  matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
+  #matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
+  matches = /.*\<div class="daily-deal-cover"\>.*?\<div\>.*?\<noscript\>\<img .*?src="(.*?)" title="(.*?)".*/m.match(content)
   if matches.nil?
     return $apress_deal
   end
 
-  url, image_url, title = matches.captures()
+  #url, image_url, title = matches.captures()
+  image_url, title = matches.captures()
+  
+  matches = /.*?\<a class="cms-daily-deal-small cms-daily-deal" href="(.*?)".*/m.match(content)
+  url = "http://www.apress.com" + matches[1]
+  
   Deal.new(:vendor_name => 'Apress',
            :vendor_id => 'apress',
            :vendor_url => 'http://www.apress.com/',
