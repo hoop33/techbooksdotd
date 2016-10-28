@@ -34,10 +34,10 @@ $peachpit_deal = Deal.new(:vendor_name => "Peachpit",
                           :title => 'No results -- check Peachpit site',
                           :url => 'http://www.peachpit.com/')
 $springer_deal = Deal.new(:vendor_name => 'Springer',
-                        :vendor_id => 'apress',
-                        :vendor_url => 'http://www.apress.com/',
-                        :title => 'No results for Springer DOTD -- check Apress site',
-                        :url => 'http://www.apress.com/')
+                        :vendor_id => 'springer',
+                        :vendor_url => 'http://www.springer.com/',
+                        :title => 'No results for Springer DOTD',
+                        :url => 'http://www.springer.com/')
 $oreilly_ms_deal = Deal.new(:vendor_name => "O'Reilly",
                          :vendor_id => 'oreilly',
                          :vendor_url => 'http://www.oreilly.com/',
@@ -85,7 +85,7 @@ def get_deals
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
   deals << get_oreilly_ms(open('http://www.oreilly.com').read)
   deals << get_peachpit(open('http://www.peachpit.com').read)
-  deals << get_springer(open('http://www.apress.com/').read)
+  deals << get_springer(open('http://www.springer.com/').read)
 end
 
 def get_apress(content)
@@ -96,12 +96,18 @@ def get_apress(content)
 
   content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   content = content.force_encoding('UTF-8').encode('UTF-16', :invalid => :replace, :replace => '').encode('UTF-8')
-  matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
+  #matches = /.*\<h2.*?\>Deal of the Day\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
+  matches = /.*\<div class="daily-deal-cover"\>.*?\<div\>.*?\<noscript\>\<img .*?src="(.*?)" title="(.*?)".*/m.match(content)
   if matches.nil?
     return $apress_deal
   end
 
-  url, image_url, title = matches.captures()
+  #url, image_url, title = matches.captures()
+  image_url, title = matches.captures()
+  
+  matches = /.*?\<a class="cms-daily-deal-small cms-daily-deal" href="(.*?)".*/m.match(content)
+  url = "http://www.apress.com" + matches[1]
+  
   Deal.new(:vendor_name => 'Apress',
            :vendor_id => 'apress',
            :vendor_url => 'http://www.apress.com/',
@@ -197,20 +203,28 @@ end
 def get_springer(content)
   # If the content is blank, return the standard Springer deal
   if content.nil?
+    print "Content is blank, Returning the standard Springer deal info\n"
     return $springer_deal
   end
 
   content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   content = content.force_encoding('UTF-8').encode('UTF-16', :invalid => :replace, :replace => '').encode('UTF-8')
-  matches = /.*\<h2.*?\>Springer Daily Deal\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
+  #matches = /.*\<h2.*?\>Springer Daily Deal\<\/h2\>.*?\<a href="(.*?apress\.com\/dailydeals.*?)".*?\<img .*?src="(.*?)".*?alt="(.*?)".*/m.match(content)
+  matches = /.*\<div class="daily-deal-cover"\>.*?\<noscript\>\<img .*?src="(.*?)" title="(.*?)".*/m.match(content)
   if matches.nil?
+    print "No matches found, Returning the standard Springer deal info\n"
     return $springer_deal
   end
 
-  url, image_url, title = matches.captures()
+  #url, image_url, title = matches.captures()
+  image_url, title = matches.captures()
+  
+  matches = /.*?\<a class="cms-daily-deal-small cms-daily-deal" href="(.*?)".*/m.match(content)
+  url = "http://www.springer.com" + matches[1]
+  
   Deal.new(:vendor_name => 'Springer',
-           :vendor_id => 'apress',
-           :vendor_url => 'http://www.apress.com/',
+           :vendor_id => 'springer',
+           :vendor_url => 'http://www.springer.com/',
            :title => title,
            :url => url,
            :image_url => image_url)
