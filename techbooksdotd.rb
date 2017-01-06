@@ -43,6 +43,11 @@ $oreilly_ms_deal = Deal.new(:vendor_name => "O'Reilly",
                          :vendor_url => 'http://www.oreilly.com/',
                          :title => "No results for Microsoft DOTD -- check O'Reilly site",
                          :url => 'http://www.oreilly.com/')
+$oreilly_video_deal = Deal.new(:vendor_name => "O'Reilly",
+                         :vendor_id => 'oreilly',
+                         :vendor_url => 'http://www.oreilly.com/',
+                         :title => "No results for Video DOTD -- check O'Reilly site",
+                         :url => 'http://www.oreilly.com/')
 
 get '/' do
   @deals = get_deals
@@ -82,8 +87,17 @@ def get_deals
   deals << get_apress(open('http://www.apress.com/').read)
   deals << get_informit(open('http://www.informit.com').read)
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
-  deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
-  deals << get_oreilly_ms(open('http://www.oreilly.com').read)
+  
+  $oreillyDOTD = get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
+  deals << $oreillyDOTD
+  $oreillyMSDOTD = get_oreilly_ms(open('http://www.oreilly.com').read)
+  if !($oreillyDOTD.image_url.gsub('oreillystatic', 'oreilly').eql?($oreillyMSDOTD.image_url.gsub('oreillystatic', 'oreilly')))
+    deals << $oreillyMSDOTD
+  end
+  puts "%s" % $oreillyDOTD.image_url
+  puts "%s" % $oreillyMSDOTD.image_url
+
+  deals << get_oreilly_video(open('http://www.oreilly.com').read)
   deals << get_peachpit(open('http://www.peachpit.com').read)
   deals << get_springer(open('http://www.springer.com/').read)
 end
@@ -239,6 +253,30 @@ def get_oreilly_ms(content)
   content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
   content = content.force_encoding('UTF-8').encode('UTF-16', :invalid => :replace, :replace => '').encode('UTF-8')
   matches = /\<a.*href="(.*MSDEAL)".*\>\<img[\s]+alt=".*"[\s]+src="(.*)"[\s]+.*class=".*"\>\<\/a\>.*<a.*href=".*MSDEAL".*>(.*)<\/a>/.match(content)
+  if matches.nil?
+    return $oreilly_ms_deal
+  end
+  url = matches[1]
+  image_url = matches[2]
+  title = matches[3]
+  Deal.new(:vendor_name => "O'Reilly",
+           :vendor_id => 'oreilly',
+           :vendor_url => 'http://www.oreilly.com/',
+           :title => title,
+           :url => url,
+           :image_url => image_url)
+end
+
+
+def get_oreilly_video(content)
+  # If the content is blank, return the standard O'Reilly deal
+  if content.nil?
+    return $oreilly_ms_deal
+  end
+
+  content = content.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
+  content = content.force_encoding('UTF-8').encode('UTF-16', :invalid => :replace, :replace => '').encode('UTF-8')
+  matches = /\<a.*href="(.*VDWK)".*\>\<img[\s]+alt=".*"[\s]+src="(.*)"[\s]+.*class=".*"\>\<\/a\>.*<a.*href=".*VDWK".*>(.*)<\/a>/.match(content)
   if matches.nil?
     return $oreilly_ms_deal
   end
