@@ -20,9 +20,9 @@ $apress_deal = Deal.new(:vendor_name => 'Apress',
                         :url => 'http://www.apress.com/')
 $oreilly_deal = Deal.new(:vendor_name => "O'Reilly",
                          :vendor_id => 'oreilly',
-                         :vendor_url => 'http://www.oreilly.com/',
+                         :vendor_url => 'https://www.oreilly.com/',
                          :title => "No results -- check O'Reilly site",
-                         :url => 'http://www.oreilly.com/')
+                         :url => 'https://www.oreilly.com/')
 $informit_deal = Deal.new(:vendor_name => 'InformIT',
                           :vendor_id => 'informit',
                           :vendor_url => 'http://www.informit.com/deals/',
@@ -83,7 +83,7 @@ def get_deals
   deals << get_informit(open('http://www.informit.com').read)
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
-  deals << get_oreilly_ms(open('http://www.oreilly.com').read)
+  #deals << get_oreilly_ms(open('https://www.oreilly.com').read)
   deals << get_peachpit(open('http://www.peachpit.com').read)
   deals << get_springer(open('http://www.springer.com/').read)
 end
