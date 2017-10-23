@@ -1,5 +1,7 @@
 # Tech Books Deals of the Day
 
+[![Join the chat at https://gitter.im/hoop33/techbooksdotd](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hoop33/techbooksdotd?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is the source code that runs http://techbooksdotd.herokuapp.com. It's written in Ruby and runs on Sinatra, using Haml for the views. It's pretty simple--look at `techbooksdotd.rb` for all controller logic.
 
 ## To Run
