@@ -79,6 +79,8 @@ end
 
 def get_deals
   deals = Array.new
+  apressContent = ""
+  springerContent = ""
   
   begin
 	apressContent = open('http://www.apress.com/').read
