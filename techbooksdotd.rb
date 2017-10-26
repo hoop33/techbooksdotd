@@ -79,13 +79,30 @@ end
 
 def get_deals
   deals = Array.new
-  deals << get_apress(open('http://www.apress.com/').read)
+  apressContent = ""
+  springerContent = ""
+  
+  begin
+	apressContent = open('http://www.apress.com/').read
+	apressContent = get_apress(apressContent)
+  rescue Exception => e
+	apressContent = $apress_deal
+  end
+  deals << apressContent
+  
   deals << get_informit(open('http://www.informit.com').read)
   deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
   #deals << get_oreilly_ms(open('https://www.oreilly.com').read)
   deals << get_peachpit(open('http://www.peachpit.com').read)
-  deals << get_springer(open('http://www.springer.com/').read)
+  
+  begin
+	springerContent = open('http://www.springer.com/').read
+	springerContent = get_springer(springerContent)
+  rescue Exception => e
+	springerContent = $springer_deal
+  end
+  deals << springerContent
 end
 
 def get_apress(content)
