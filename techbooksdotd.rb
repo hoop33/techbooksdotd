@@ -91,7 +91,7 @@ def get_deals
   deals << apressContent
   
   deals << get_informit(open('http://www.informit.com').read)
-  deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
+#  deals << get_manning(open('http://incsrc.manningpublications.com/dotd.js').read)
   deals << get_oreilly(open('http://feeds.feedburner.com/oreilly/ebookdealoftheday'))
   #deals << get_oreilly_ms(open('https://www.oreilly.com').read)
   deals << get_peachpit(open('http://www.peachpit.com').read)
